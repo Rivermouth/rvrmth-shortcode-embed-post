@@ -38,7 +38,7 @@ add_shortcode('embed-post', 'rvrmth_shortcode_embed_post');
 function __rvrmth_shortcode_embed_post_html(&$attrs) 
 {
 	if (function_exists('rvrmth_shortcode_embed_post_html')) {
-		return rvrmth_shortcode_embed_post_html($a);
+		return rvrmth_shortcode_embed_post_html($attrs);
 	}
 	$fn = function($func) {
 		return $func;
