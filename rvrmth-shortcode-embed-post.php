@@ -44,7 +44,7 @@ function __rvrmth_shortcode_embed_post_html(&$attrs)
 		return $func;
 	};
 	$html = '<article>';
-	if ($attrs['show_featured_image']) 
+	if ($attrs['show_featured_image']) {
 		$html .= get_the_post_thumbnail();
 	}
 	if ($attrs['show_title']) {
