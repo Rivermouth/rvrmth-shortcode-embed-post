@@ -15,13 +15,15 @@ Text Domain: rvrmth-shortcode-embed-post
 /**
  * Used in carousel.
  *
- * [embed-post id="1234"]
+ * [embed-post id=1234 show_featured_image=true show_title=true]
  */
 
 function rvrmth_shortcode_embed_post($atts) 
 {
 	$a = shortcode_atts(array(
-		'id' => 0,
+		'id' => 0, 
+		'show_featured_image' = true, 
+		'show_title' = true, 
 	), $atts);
 	global $post;
 	$post_object = get_post($a['id']);
@@ -33,20 +35,23 @@ function rvrmth_shortcode_embed_post($atts)
 }
 add_shortcode('embed-post', 'rvrmth_shortcode_embed_post');
 
-function __rvrmth_shortcode_embed_post_html() 
+function __rvrmth_shortcode_embed_post_html(&$attrs) 
 {
 	if (function_exists('rvrmth_shortcode_embed_post_html')) {
-		return rvrmth_shortcode_embed_post_html();
+		return rvrmth_shortcode_embed_post_html($a);
 	}
 	$fn = function($func) {
 		return $func;
 	};
-	return <<<EOT
-<article>
-	<h1>{$fn(get_the_title())}</h1>
-	{$fn(get_the_content())}
-</article>
-EOT;
+	$html = '<article>';
+	if ($attrs['show_featured_image']) 
+		$html .= get_the_post_thumbnail();
+	}
+	if ($attrs['show_title']) {
+		$html .= '<h1>' . get_the_title() . '</h1>';
+	}
+	$html .= get_the_content() . '</article>';
+	return $html;
 }
 
 ?>
