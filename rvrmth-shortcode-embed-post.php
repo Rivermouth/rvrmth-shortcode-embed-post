@@ -29,7 +29,7 @@ function rvrmth_shortcode_embed_post($atts)
 	$post_object = get_post($a['id']);
 	$post = $post_object;
 	setup_postdata($post);
-	$html = __rvrmth_shortcode_embed_post_html();
+	$html = __rvrmth_shortcode_embed_post_html($a);
 	wp_reset_postdata();
 	return $html;
 }
