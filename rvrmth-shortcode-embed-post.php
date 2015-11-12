@@ -22,8 +22,8 @@ function rvrmth_shortcode_embed_post($atts)
 {
 	$a = shortcode_atts(array(
 		'id' => 0, 
-		'show_featured_image' = true, 
-		'show_title' = true, 
+		'show_featured_image' => true, 
+		'show_title' => true, 
 	), $atts);
 	global $post;
 	$post_object = get_post($a['id']);
