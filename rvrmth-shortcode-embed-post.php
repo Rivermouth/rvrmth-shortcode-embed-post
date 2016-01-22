@@ -18,15 +18,21 @@ Text Domain: rvrmth-shortcode-embed-post
  * [embed-post id=1234 show_featured_image=true show_title=true]
  */
 
-function rvrmth_shortcode_embed_post($atts) 
+function rvrmth_shortcode_embed_post($atts)
 {
 	$a = shortcode_atts(array(
-		'id' => 0, 
-		'show_featured_image' => true, 
-		'show_title' => true, 
+		'id' => 0,
+		'show_featured_image' => true,
+		'show_title' => true,
 	), $atts);
 	global $post;
+
 	$post_object = get_post($a['id']);
+	$curr_lang_post_object_ID = apply_filters( 'wpml_object_id', $post_object->ID, $post_object->post_type, false, NULL);
+	if (isset($curr_lang_post_object_ID)) {
+		$post_object = get_post($curr_lang_post_object_ID);
+	}
+
 	$post = $post_object;
 	setup_postdata($post);
 	$html = __rvrmth_shortcode_embed_post_html($a);
@@ -35,7 +41,7 @@ function rvrmth_shortcode_embed_post($atts)
 }
 add_shortcode('embed-post', 'rvrmth_shortcode_embed_post');
 
-function __rvrmth_shortcode_embed_post_html(&$attrs) 
+function __rvrmth_shortcode_embed_post_html(&$attrs)
 {
 	if (function_exists('rvrmth_shortcode_embed_post_html')) {
 		return rvrmth_shortcode_embed_post_html($attrs);
